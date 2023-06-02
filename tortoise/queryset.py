@@ -1735,7 +1735,7 @@ class BulkUpdateQuery(UpdateQuery, Generic[MODEL]):
                             ),
                         )
                         if self._db.schema_generator.DIALECT == "postgres"
-                        else self.query._wrapper_cls(field_value),
+                        else executor.column_map[field](field_value, obj),
                     )
                     pk_list.append(value)
                 query = query.set(field, case)
